@@ -10,9 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DeleteDecisionButton } from "./delete-decision-button";
-import type { Decision } from "@prisma/client";
 
-export function DecisionCard({ decision }: { decision: Decision }) {
+export function DecisionCard({ decision }: { decision: any }) {
     const router = useRouter();
 
     const handleCardClick = (e: React.MouseEvent) => {
