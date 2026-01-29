@@ -16,6 +16,7 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { DeleteDecisionButton } from "@/components/decision/delete-decision-button";
 import { DecisionCard } from "@/components/decision/decision-card";
+import type { Decision } from "@prisma/client";
 
 export default async function DashboardPage() {
     const session = await auth();
@@ -72,7 +73,7 @@ export default async function DashboardPage() {
                         </Link>
                     </div>
                 ) : (
-                    decisions.map((decision) => (
+                    decisions.map((decision: Decision) => (
                         <DecisionCard key={decision.id} decision={decision} />
                     ))
                 )}
