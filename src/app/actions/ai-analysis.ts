@@ -36,12 +36,12 @@ export async function analyzeDecision(decisionId: string): Promise<string> {
         }
 
         // Format data for prompt
-        const optionsList = decision.options.map(opt => `• ${opt.title}`).join("\n");
-        const criteriaList = decision.criteria.map(crit => `${crit.name} (Weight: ${crit.weight})`).join("\n");
-        
-        const scoresMapping = decision.options.map(opt => {
-            const scores = opt.scores.map(s => {
-                const critName = decision.criteria.find(c => c.id === s.criterionId)?.name || "Unknown";
+        const optionsList = decision.options.map((opt: any) => `• ${opt.title}`).join("\n");
+        const criteriaList = decision.criteria.map((crit: any) => `${crit.name} (Weight: ${crit.weight})`).join("\n");
+
+        const scoresMapping = decision.options.map((opt: any) => {
+            const scores = opt.scores.map((s: any) => {
+                const critName = decision.criteria.find((c: any) => c.id === s.criterionId)?.name || "Unknown";
                 return `${critName}: ${s.value}`;
             }).join(", ");
             return `${opt.title}: [${scores}]`;
