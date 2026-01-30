@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Brain, CheckCircle2, Sparkles } from "lucide-react";
+import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
   return (
@@ -10,22 +11,22 @@ export default function Home() {
         {/* Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/5" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]" />
-        
+
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-4">
             <Sparkles className="h-4 w-4" />
             <span>Make Better Decisions</span>
           </div>
-          
+
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
             ClearMind
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Transform complex decisions into clear choices with our intelligent decision matrix tool
           </p>
-          
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link href="/register">
               <Button size="lg" className="text-lg px-8 py-6 h-auto group">
@@ -52,7 +53,7 @@ export default function Home() {
               AI-powered insights help you understand your options better
             </p>
           </div>
-          
+
           <div className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm hover:bg-card transition-all hover:shadow-lg">
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
               <CheckCircle2 className="h-6 w-6 text-primary" />
@@ -62,7 +63,7 @@ export default function Home() {
               Evaluate options against multiple criteria with customizable weights
             </p>
           </div>
-          
+
           <div className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm hover:bg-card transition-all hover:shadow-lg">
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
               <Sparkles className="h-6 w-6 text-primary" />
@@ -74,6 +75,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
