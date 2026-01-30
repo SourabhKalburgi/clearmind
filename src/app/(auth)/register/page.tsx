@@ -12,6 +12,8 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Linkedin, Github } from "lucide-react";
+import Link from "next/link";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -19,10 +21,12 @@ export default function RegisterPage() {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+        setIsLoading(true);
 
         try {
             const res = await fetch("/api/register", {
@@ -41,6 +45,8 @@ export default function RegisterPage() {
             }
         } catch (err) {
             setError("Something went wrong");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -102,8 +108,18 @@ export default function RegisterPage() {
                                 {error}
                             </div>
                         )}
-                        <Button type="submit" className="w-full h-11 text-base font-semibold">
-                            Sign Up
+                        <Button type="submit" className="w-full h-11 text-base font-semibold" disabled={isLoading}>
+                            {isLoading ? (
+                                <>
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Creating account...
+                                </>
+                            ) : (
+                                "Sign Up"
+                            )}
                         </Button>
                         <div className="mt-2 text-center text-sm text-muted-foreground">
                             Already have an account?{" "}
@@ -112,6 +128,31 @@ export default function RegisterPage() {
                             </a>
                         </div>
                     </form>
+
+                    {/* Social Links */}
+                    <div className="mt-6 pt-6 border-t border-border/40">
+                        <p className="text-center text-sm text-muted-foreground mb-3">Connect with the developer</p>
+                        <div className="flex items-center justify-center gap-3">
+                            <Link
+                                href="https://www.linkedin.com/in/sourabh-kalburgi-6a51b720a/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-blue-600/10 hover:from-blue-500/20 hover:to-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:scale-105"
+                            >
+                                <Linkedin className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                                <span className="text-xs font-medium text-blue-600 dark:text-blue-400">LinkedIn</span>
+                            </Link>
+                            <Link
+                                href="https://github.com/SourabhKalburgi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-600/10 hover:from-purple-500/20 hover:to-pink-600/20 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:scale-105"
+                            >
+                                <Github className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                                <span className="text-xs font-medium text-purple-600 dark:text-purple-400">GitHub</span>
+                            </Link>
+                        </div>
+                    </div>
                 </CardContent>
             </Card>
         </div>
