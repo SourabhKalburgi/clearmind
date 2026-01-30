@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Brain, CheckCircle2, Sparkles } from "lucide-react";
-import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
   return (
@@ -75,7 +74,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer />
     </main>
   );
 }
