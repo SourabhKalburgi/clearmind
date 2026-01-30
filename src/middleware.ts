@@ -1,28 +1,18 @@
-// src/middleware.ts
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { auth } from "@/auth"
 
-export function middleware(req: NextRequest) {
-    console.log(`Middleware processing: ${req.nextUrl.pathname}`);
-    const cookies = req.cookies.getAll();
-    console.log("Cookies:", cookies.map(c => c.name));
+export default auth((req) => {
+    const isLoggedIn = !!req.auth
+    const isProtectedRoute =
+        req.nextUrl.pathname.startsWith("/dashboard") ||
+        req.nextUrl.pathname.startsWith("/decision")
 
-    const sessionToken =
-        req.cookies.get("next-auth.session-token") ||
-        req.cookies.get("__Secure-next-auth.session-token") ||
-        req.cookies.get("authjs.session-token"); // Check for authjs cookie too
-
-    const isDashboard = req.nextUrl.pathname.startsWith("/dashboard")
-    const isDecision = req.nextUrl.pathname.startsWith("/decision")
-
-    if ((isDashboard || isDecision) && !sessionToken) {
-        console.log("Redirecting to login (no session token)");
-        return NextResponse.redirect(new URL("/login", req.url))
+    if (isProtectedRoute && !isLoggedIn) {
+        const loginUrl = new URL("/login", req.url)
+        return Response.redirect(loginUrl)
     }
-
-    return NextResponse.next()
-}
+})
 
 export const config = {
     matcher: ["/dashboard/:path*", "/decision/:path*"],
+    runtime: 'nodejs',
 }
